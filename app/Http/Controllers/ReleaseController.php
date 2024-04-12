@@ -5,14 +5,25 @@ namespace App\Http\Controllers;
 use App\Models\Release;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
+use Illuminate\Support\Facades\Http;
 
 class ReleaseController extends Controller
 {
     public function index()
     {
-        return Inertia::render('Releases/Index', [
-            //
-        ]);
+        // $releaseId = "1159235";
+
+        // $response = Http::get("https://api.discogs.com/releases/{$releaseId}");
+
+        // if ($response->successful()) {
+        //     $data = $response->json();
+
+        //     return Inertia::render('Releases/Index', [
+        //         'releaseData' => $data
+        //     ]);
+        // } else {
+        //     return response()->json(['error' => 'Failed to fetch data from Discogs API'], $response->status());
+        // }
     }
 
     /**
