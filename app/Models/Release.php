@@ -29,6 +29,8 @@ class Release extends Model
         'kollektivx_uri',
         'kollektivx_is_raw',
         'kollektivx_is_restored',
+        'image_full_uri',
+        'image_thumbnail_uri'
     ];
 
     public function user()
