@@ -39,7 +39,33 @@ class ReleaseController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validatedData = $request->validate([
+            'user_id' => 'required|integer',
+            'discogs_id' => 'nullable|integer',
+            'discogs_master_id' => 'nullable|integer',
+            'kollektivx_id' => 'nullable|integer',
+            'title' => 'required|string|max:255',
+            'formats' => 'nullable|string|max:255',
+            'country' => 'nullable|string|max:255',
+            'released' => 'nullable|string|max:255',
+            'year' => 'nullable|integer',
+            'rating_average' => 'nullable|integer',
+            'rating_count' => 'nullable|integer',
+            'have' => 'nullable|integer',
+            'want' => 'nullable|integer',
+            'num_for_sale' => 'nullable|integer',
+            'lowest_price' => 'nullable|numeric',
+            'uri' => 'nullable|string|max:255',
+            'kollektivx_uri' => 'nullable|string|max:255',
+            'kollektivx_is_raw' => 'nullable|boolean',
+            'kollektivx_is_restored' => 'nullable|boolean',
+            'image_full_uri' => 'nullable|string|max:255',
+            'image_thumbnail_uri' => 'nullable|string|max:255',
+        ]);
+
+        $release = Release::create($validatedData);
+
+        return response()->json(['message' => 'Release created successfully', 'release' => $release], 201);
     }
 
     /**
