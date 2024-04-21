@@ -18,10 +18,16 @@ class StyleController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
-    }
+        $validatedData = $request->validate([
+            'name' => 'required|string|max:255',
+        ]);
+
+        $style = Style::create($validatedData);
+
+        return response()->json(['message' => 'Style created successfully', 'style' => $style], 201);
+      }
 
     /**
      * Store a newly created resource in storage.
