@@ -11,19 +11,11 @@ class ReleaseController extends Controller
 {
     public function index()
     {
-        // $releaseId = "1159235";
+        $releases = Release::with(['artists', 'labels', 'genres', 'styles'])->get(); // TODO : OPTIMIZE?
 
-        // $response = Http::get("https://api.discogs.com/releases/{$releaseId}");
-
-        // if ($response->successful()) {
-        //     $data = $response->json();
-
-        //     return Inertia::render('Releases/Index', [
-        //         'releaseData' => $data
-        //     ]);
-        // } else {
-        //     return response()->json(['error' => 'Failed to fetch data from Discogs API'], $response->status());
-        // }
+        return Inertia::render('Dashboard', [
+            'releases' => $releases
+        ]);
     }
 
     /**
@@ -40,8 +32,7 @@ class ReleaseController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate([
-            'user_id' => 'required|integer',
-            'discogs_id' => 'nullable|integer',
+            'discogs_id' => 'required|integer',
             'discogs_master_id' => 'nullable|integer',
             'kollektivx_id' => 'nullable|integer',
             'title' => 'required|string|max:255',

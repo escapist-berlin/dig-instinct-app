@@ -10,7 +10,6 @@ class Release extends Model
     use HasFactory;
 
     protected $fillable = [
-        'user_id',
         'discogs_id',
         'discogs_master_id',
         'kollektivx_id',
@@ -33,24 +32,29 @@ class Release extends Model
         'image_thumbnail_uri'
     ];
 
-    public function user()
+    public function users()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsToMany(User::class, 'release_user');
     }
 
     public function artists()
     {
-    return $this->belongsToMany(Artist::class, 'release_artist');
+        return $this->belongsToMany(Artist::class, 'release_artist');
     }
 
     public function labels()
     {
-    return $this->belongsToMany(Label::class, 'release_label');
+        return $this->belongsToMany(Label::class, 'release_label');
+    }
+
+    public function genres()
+    {
+        return $this->belongsToMany(Genre::class, 'release_genre');
     }
 
     public function styles()
     {
-    return $this->belongsToMany(Style::class, 'release_style');
+        return $this->belongsToMany(Style::class, 'release_style');
     }
 
     public function tracks()
@@ -65,6 +69,6 @@ class Release extends Model
 
     public function userLists()
     {
-    return $this->belongsToMany(UserList::class, 'release_list');
+        return $this->belongsToMany(UserList::class, 'release_list');
     }
 }
