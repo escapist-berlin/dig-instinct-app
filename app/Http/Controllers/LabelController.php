@@ -18,9 +18,16 @@ class LabelController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
+        $validatedData = $request->validate([
+            'discogs_id' => 'required|integer',
+            'name' => 'required|string|max:255',
+        ]);
+
+        $label = Label::create($validatedData);
+
+        return response()->json(['message' => 'Label created successfully', 'label' => $label], 201);
     }
 
     /**
