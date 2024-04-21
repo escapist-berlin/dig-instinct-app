@@ -18,9 +18,16 @@ class ArtistController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
+        $validatedData = $request->validate([
+            'discogs_id' => 'required|integer',
+            'name' => 'required|string|max:255',
+        ]);
+
+        $artist = Artist::create($validatedData);
+
+        return response()->json(['message' => 'Artist created successfully', 'artist' => $artist], 201);
     }
 
     /**
