@@ -26,7 +26,7 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::resource('releases', ReleaseController::class)
-    ->only(['index', 'store'])
+    ->only(['index', 'store', 'show'])
     ->middleware(['auth', 'verified']);
 
 require __DIR__.'/auth.php';

@@ -1,0 +1,431 @@
+[
+  {
+    "id": 13266616,
+    "status": "Accepted",
+    "year": 0,
+    "resource_url": "https://api.discogs.com/releases/13266616",
+    "uri": "https://www.discogs.com/release/13266616-%E0%B8%A2%E0%B8%AD%E0%B8%94%E0%B8%A3%E0%B8%81-%E0%B8%AA%E0%B8%A5%E0%B8%81%E0%B9%83%E0%B8%88-%E0%B8%99%E0%B8%AD%E0%B8%87%E0%B8%AD%E0%B8%AD%E0%B8%A2-%E0%B9%81%E0%B8%9E%E0%B9%80%E0%B8%9E%E0%B8%A3%E0%B8%B2%E0%B8%B0%E0%B8%88%E0%B8%99",
+    "artists": [
+        {
+            "name": "\u0e22\u0e2d\u0e14\u0e23\u0e31\u0e01 \u0e2a\u0e25\u0e31\u0e01\u0e43\u0e08",
+            "anv": "",
+            "join": "",
+            "role": "",
+            "tracks": "",
+            "id": 3595596,
+            "resource_url": "https://api.discogs.com/artists/3595596"
+        }
+    ],
+    "artists_sort": "\u0e22\u0e2d\u0e14\u0e23\u0e31\u0e01 \u0e2a\u0e25\u0e31\u0e01\u0e43\u0e08",
+    "labels": [
+        {
+            "name": "Sun Stereo",
+            "catno": "none",
+            "entity_type": "1",
+            "entity_type_name": "Label",
+            "id": 967803,
+            "resource_url": "https://api.discogs.com/labels/967803"
+        }
+    ],
+    "series": [],
+    "companies": [],
+    "formats": [
+        {
+            "name": "Vinyl",
+            "qty": "1",
+            "descriptions": [
+                "7\"",
+                "45 RPM",
+                "Single"
+            ]
+        }
+    ],
+    "data_quality": "Needs Vote",
+    "community": {
+        "have": 9,
+        "want": 23,
+        "rating": {
+            "count": 3,
+            "average": 3.67
+        },
+        "submitter": {
+            "username": "jenny_bargeld",
+            "resource_url": "https://api.discogs.com/users/jenny_bargeld"
+        },
+        "contributors": [
+            {
+                "username": "jenny_bargeld",
+                "resource_url": "https://api.discogs.com/users/jenny_bargeld"
+            },
+            {
+                "username": "Zach_Jirarat",
+                "resource_url": "https://api.discogs.com/users/Zach_Jirarat"
+            }
+        ],
+        "data_quality": "Needs Vote",
+        "status": "Accepted"
+    },
+    "format_quantity": 1,
+    "date_added": "2019-02-24T08:46:03-08:00",
+    "date_changed": "2019-02-25T12:23:46-08:00",
+    "num_for_sale": 1,
+    "lowest_price": 16.37,
+    "title": "\u0e19\u0e49\u0e2d\u0e07\u0e2d\u0e49\u0e2d\u0e22 / \u0e41\u0e1e\u0e49\u0e40\u0e1e\u0e23\u0e32\u0e30\u0e08\u0e19",
+    "country": "Thailand",
+    "identifiers": [],
+    "videos": [
+        {
+            "uri": "https://www.youtube.com/watch?v=ifgegF9eIzI",
+            "title": "\u0e22\u0e2d\u0e14\u0e23\u0e31\u0e01 \u0e2a\u0e25\u0e31\u0e01\u0e43\u0e08 - \u0e19\u0e49\u0e2d\u0e07\u0e2d\u0e49\u0e2d\u0e22 (Thailand)",
+            "description": "Check out our FREE Discogs wantlist tool and never miss a release you're looking for: https://bit.ly/kollektivxwantlist\n\nArchiving and preserving rare records and other sought-after sounds through crowdfunding before they vanish. Created and being run by ",
+            "duration": 139,
+            "embed": true
+        },
+        {
+            "uri": "https://www.youtube.com/watch?v=Rqi_fnb55JU",
+            "title": "\u0e22\u0e2d\u0e14\u0e23\u0e31\u0e01 \u0e2a\u0e25\u0e31\u0e01\u0e43\u0e08 - \u0e41\u0e1e\u0e49\u0e40\u0e1e\u0e23\u0e32\u0e30\u0e08\u0e19 (Thailand)",
+            "description": "Check out our FREE Discogs wantlist tool and never miss a release you're looking for: https://bit.ly/kollektivxwantlist\n\nArchiving and preserving rare records and other sought-after sounds through crowdfunding before they vanish. Created and being run by ",
+            "duration": 156,
+            "embed": true
+        }
+    ],
+    "genres": [
+        "Funk / Soul",
+        "Pop",
+        "Folk, World, & Country"
+    ],
+    "styles": [
+        "Disco",
+        "Luk Thung"
+    ],
+    "tracklist": [
+        {
+            "position": "A",
+            "type_": "track",
+            "title": "\u0e19\u0e49\u0e2d\u0e07\u0e2d\u0e49\u0e2d\u0e22 ",
+            "duration": ""
+        },
+        {
+            "position": "B",
+            "type_": "track",
+            "title": "\u0e41\u0e1e\u0e49\u0e40\u0e1e\u0e23\u0e32\u0e30\u0e08\u0e19",
+            "duration": ""
+        }
+    ],
+    "extraartists": [],
+    "images": [
+        {
+            "type": "primary",
+            "uri": "https://i.discogs.com/gT-8KAKI4HLm_bePgBiitousjDnRrJsw-DzwtOfmMSw/rs:fit/g:sm/q:90/h:600/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTEzMjY2/NjE2LTE1NTEwMjY3/ODItMjAyNy5qcGVn.jpeg",
+            "resource_url": "https://i.discogs.com/gT-8KAKI4HLm_bePgBiitousjDnRrJsw-DzwtOfmMSw/rs:fit/g:sm/q:90/h:600/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTEzMjY2/NjE2LTE1NTEwMjY3/ODItMjAyNy5qcGVn.jpeg",
+            "uri150": "https://i.discogs.com/NX9rFN8dp4TZoJyhMSrOkW1QEyVX_8BEJsCFy9lGoHk/rs:fit/g:sm/q:40/h:150/w:150/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTEzMjY2/NjE2LTE1NTEwMjY3/ODItMjAyNy5qcGVn.jpeg",
+            "width": 600,
+            "height": 600
+        },
+        {
+            "type": "secondary",
+            "uri": "https://i.discogs.com/WxXmq_od3yBKI_kUyXNtNg2WlZzSzikLVfdqhyNzhWw/rs:fit/g:sm/q:90/h:600/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTEzMjY2/NjE2LTE1NTEwMjY3/ODMtODQ5Ni5qcGVn.jpeg",
+            "resource_url": "https://i.discogs.com/WxXmq_od3yBKI_kUyXNtNg2WlZzSzikLVfdqhyNzhWw/rs:fit/g:sm/q:90/h:600/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTEzMjY2/NjE2LTE1NTEwMjY3/ODMtODQ5Ni5qcGVn.jpeg",
+            "uri150": "https://i.discogs.com/dJjwXdNHTx6ChKVmzXAWOviuJgk5LZFnNj7PnPJmLiY/rs:fit/g:sm/q:40/h:150/w:150/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTEzMjY2/NjE2LTE1NTEwMjY3/ODMtODQ5Ni5qcGVn.jpeg",
+            "width": 600,
+            "height": 600
+        }
+    ],
+    "thumb": "https://i.discogs.com/NX9rFN8dp4TZoJyhMSrOkW1QEyVX_8BEJsCFy9lGoHk/rs:fit/g:sm/q:40/h:150/w:150/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTEzMjY2/NjE2LTE1NTEwMjY3/ODItMjAyNy5qcGVn.jpeg",
+    "estimated_weight": 60,
+    "blocked_from_sale": false
+  },
+  {
+    "id": 12289928,
+    "status": "Accepted",
+    "year": 1992,
+    "resource_url": "https://api.discogs.com/releases/12289928",
+    "uri": "https://www.discogs.com/release/12289928-Mercy-Sex-Appeal",
+    "artists": [
+        {
+            "name": "Mercy Pakela",
+            "anv": "Mercy",
+            "join": "",
+            "role": "",
+            "tracks": "",
+            "id": 2565556,
+            "resource_url": "https://api.discogs.com/artists/2565556"
+        }
+    ],
+    "artists_sort": "Mercy Pakela",
+    "labels": [
+        {
+            "name": "Magic (25)",
+            "catno": "12 MAGIC (EV) 4",
+            "entity_type": "1",
+            "entity_type_name": "Label",
+            "id": 2010975,
+            "resource_url": "https://api.discogs.com/labels/2010975"
+        }
+    ],
+    "series": [],
+    "companies": [
+        {
+            "name": "The CCP Record Company",
+            "catno": "",
+            "entity_type": "8",
+            "entity_type_name": "Marketed By",
+            "id": 698704,
+            "resource_url": "https://api.discogs.com/labels/698704"
+        },
+        {
+            "name": "EMI South Africa",
+            "catno": "",
+            "entity_type": "9",
+            "entity_type_name": "Distributed By",
+            "id": 683227,
+            "resource_url": "https://api.discogs.com/labels/683227"
+        },
+        {
+            "name": "The CCP Record Company",
+            "catno": "",
+            "entity_type": "13",
+            "entity_type_name": "Phonographic Copyright (p)",
+            "id": 698704,
+            "resource_url": "https://api.discogs.com/labels/698704"
+        },
+        {
+            "name": "Interpak",
+            "catno": "",
+            "entity_type": "19",
+            "entity_type_name": "Printed By",
+            "id": 224765,
+            "resource_url": "https://api.discogs.com/labels/224765"
+        },
+        {
+            "name": "Sweet Sixteen Studios",
+            "catno": "",
+            "entity_type": "23",
+            "entity_type_name": "Recorded At",
+            "id": 520451,
+            "resource_url": "https://api.discogs.com/labels/520451"
+        },
+        {
+            "name": "Rhythm Nation Studios",
+            "catno": "",
+            "entity_type": "23",
+            "entity_type_name": "Recorded At",
+            "id": 650262,
+            "resource_url": "https://api.discogs.com/labels/650262"
+        }
+    ],
+    "formats": [
+        {
+            "name": "Vinyl",
+            "qty": "1",
+            "descriptions": [
+                "12\"",
+                "33 \u2153 RPM",
+                "Promo"
+            ]
+        }
+    ],
+    "data_quality": "Needs Vote",
+    "community": {
+        "have": 8,
+        "want": 50,
+        "rating": {
+            "count": 7,
+            "average": 3.14
+        },
+        "submitter": {
+            "username": "DJVice80",
+            "resource_url": "https://api.discogs.com/users/DJVice80"
+        },
+        "contributors": [
+            {
+                "username": "DJVice80",
+                "resource_url": "https://api.discogs.com/users/DJVice80"
+            },
+            {
+                "username": "453378",
+                "resource_url": "https://api.discogs.com/users/453378"
+            },
+            {
+                "username": "el_sabu",
+                "resource_url": "https://api.discogs.com/users/el_sabu"
+            }
+        ],
+        "data_quality": "Needs Vote",
+        "status": "Accepted"
+    },
+    "format_quantity": 1,
+    "date_added": "2018-07-22T04:57:13-07:00",
+    "date_changed": "2021-01-10T23:11:08-08:00",
+    "num_for_sale": 0,
+    "lowest_price": null,
+    "title": "Sex Appeal",
+    "country": "South Africa",
+    "released": "1992",
+    "notes": "Taken from the cassette L4 MAGIC (EV) 5",
+    "released_formatted": "1992",
+    "identifiers": [
+        {
+            "type": "Rights Society",
+            "value": "Sarral"
+        }
+    ],
+    "videos": [
+        {
+            "uri": "https://www.youtube.com/watch?v=2cOb1BNCr7k",
+            "title": "Mercy - Sex Appeal (1992) #WaarWasJy",
+            "description": "Edited by YouCut:https://youcutapp.page.link/BestEditor",
+            "duration": 284,
+            "embed": true
+        },
+        {
+            "uri": "https://www.youtube.com/watch?v=Sg6HvURg81E",
+            "title": "Mercy - Hosana Hosana (South Africa, 1992)",
+            "description": "Check out our FREE Discogs wantlist tool and never miss a release you're looking for: https://bit.ly/kollektivxwantlist\n\nArchiving and preserving rare records and other sought-after sounds through crowdfunding before they vanish. Created and being run by ",
+            "duration": 285,
+            "embed": true
+        },
+        {
+            "uri": "https://www.youtube.com/watch?v=T71y6mVOEkM",
+            "title": "Mercy - Sex Appeal (South Africa, 1992)",
+            "description": "Check out our FREE Discogs wantlist tool and never miss a release you're looking for: https://bit.ly/kollektivxwantlist\n\nArchiving and preserving rare records and other sought-after sounds through crowdfunding before they vanish. Created and being run by ",
+            "duration": 285,
+            "embed": true
+        }
+    ],
+    "genres": [
+        "Funk / Soul",
+        "Pop"
+    ],
+    "styles": [
+        "Bubblegum"
+    ],
+    "tracklist": [
+        {
+            "position": "A",
+            "type_": "track",
+            "title": "Sex Appeal",
+            "extraartists": [
+                {
+                    "name": "Adrian Hamilton",
+                    "anv": "",
+                    "join": "",
+                    "role": "Engineer",
+                    "tracks": "",
+                    "id": 487386,
+                    "resource_url": "https://api.discogs.com/artists/487386"
+                },
+                {
+                    "name": "Themba Nhlapo",
+                    "anv": "",
+                    "join": "",
+                    "role": "Written-By",
+                    "tracks": "",
+                    "id": 6602583,
+                    "resource_url": "https://api.discogs.com/artists/6602583"
+                }
+            ],
+            "duration": "4:47"
+        },
+        {
+            "position": "B",
+            "type_": "track",
+            "title": "Hosana Hosana ",
+            "extraartists": [
+                {
+                    "name": "Alan Rissik",
+                    "anv": "Allan Rissik",
+                    "join": "",
+                    "role": "Engineer",
+                    "tracks": "",
+                    "id": 4418363,
+                    "resource_url": "https://api.discogs.com/artists/4418363"
+                },
+                {
+                    "name": "Themba Nhlapo",
+                    "anv": "",
+                    "join": "",
+                    "role": "Written-By",
+                    "tracks": "",
+                    "id": 6602583,
+                    "resource_url": "https://api.discogs.com/artists/6602583"
+                }
+            ],
+            "duration": "4:44"
+        }
+    ],
+    "extraartists": [
+        {
+            "name": "Dumisani Dlamini",
+            "anv": "",
+            "join": "",
+            "role": "Producer",
+            "tracks": "",
+            "id": 1293117,
+            "resource_url": "https://api.discogs.com/artists/1293117"
+        },
+        {
+            "name": "Thiza",
+            "anv": "Thiza Nhlapo",
+            "join": "",
+            "role": "Producer",
+            "tracks": "",
+            "id": 4343487,
+            "resource_url": "https://api.discogs.com/artists/4343487"
+        }
+    ],
+    "images": [
+        {
+            "type": "primary",
+            "uri": "https://i.discogs.com/NRAEkplY7oX3QmRd8Kl_upqxsiMYbmTvgAnxM5zf3Zo/rs:fit/g:sm/q:90/h:498/w:498/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTEyMjg5/OTI4LTE1NzM0ODk5/NDMtNTQ2Mi5qcGVn.jpeg",
+            "resource_url": "https://i.discogs.com/NRAEkplY7oX3QmRd8Kl_upqxsiMYbmTvgAnxM5zf3Zo/rs:fit/g:sm/q:90/h:498/w:498/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTEyMjg5/OTI4LTE1NzM0ODk5/NDMtNTQ2Mi5qcGVn.jpeg",
+            "uri150": "https://i.discogs.com/BVwN9bitEH9MOJ8t7xVtsJGbqIsuuQuP2RVi5CUfjT8/rs:fit/g:sm/q:40/h:150/w:150/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTEyMjg5/OTI4LTE1NzM0ODk5/NDMtNTQ2Mi5qcGVn.jpeg",
+            "width": 498,
+            "height": 498
+        },
+        {
+            "type": "secondary",
+            "uri": "https://i.discogs.com/UdnxqR2jqrl8dWUJuLMrat-khhg4hAwmaxuAopoL0Eo/rs:fit/g:sm/q:90/h:498/w:496/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTEyMjg5/OTI4LTE1NzM0ODk5/NDMtMTM1OC5qcGVn.jpeg",
+            "resource_url": "https://i.discogs.com/UdnxqR2jqrl8dWUJuLMrat-khhg4hAwmaxuAopoL0Eo/rs:fit/g:sm/q:90/h:498/w:496/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTEyMjg5/OTI4LTE1NzM0ODk5/NDMtMTM1OC5qcGVn.jpeg",
+            "uri150": "https://i.discogs.com/883JTijM4wV1R1TD0PQ_-y1J-3w5CdkyLvH4x5rJuXY/rs:fit/g:sm/q:40/h:150/w:150/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTEyMjg5/OTI4LTE1NzM0ODk5/NDMtMTM1OC5qcGVn.jpeg",
+            "width": 496,
+            "height": 498
+        },
+        {
+            "type": "secondary",
+            "uri": "https://i.discogs.com/5JBBN1EXHPtPuUW0rXT3MTXyd4CG-mp0wWdh8YZQ_a8/rs:fit/g:sm/q:90/h:493/w:498/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTEyMjg5/OTI4LTE1NzM0ODk5/NDMtNDAyNC5qcGVn.jpeg",
+            "resource_url": "https://i.discogs.com/5JBBN1EXHPtPuUW0rXT3MTXyd4CG-mp0wWdh8YZQ_a8/rs:fit/g:sm/q:90/h:493/w:498/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTEyMjg5/OTI4LTE1NzM0ODk5/NDMtNDAyNC5qcGVn.jpeg",
+            "uri150": "https://i.discogs.com/yBnmINFmpK4NO7Mh-34xhn2TjPAraalhtlIpw7rOerM/rs:fit/g:sm/q:40/h:150/w:150/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTEyMjg5/OTI4LTE1NzM0ODk5/NDMtNDAyNC5qcGVn.jpeg",
+            "width": 498,
+            "height": 493
+        },
+        {
+            "type": "secondary",
+            "uri": "https://i.discogs.com/advzFCUzCbrnImCo7TJ57WAO74w1GFt0WBP_IYg1JLQ/rs:fit/g:sm/q:90/h:494/w:498/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTEyMjg5/OTI4LTE1NzM0ODk5/NDMtNTcxNC5qcGVn.jpeg",
+            "resource_url": "https://i.discogs.com/advzFCUzCbrnImCo7TJ57WAO74w1GFt0WBP_IYg1JLQ/rs:fit/g:sm/q:90/h:494/w:498/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTEyMjg5/OTI4LTE1NzM0ODk5/NDMtNTcxNC5qcGVn.jpeg",
+            "uri150": "https://i.discogs.com/KUuTOaE3DQP8-yKlFrK60HbKua_kfuj8kITBXfMKTu0/rs:fit/g:sm/q:40/h:150/w:150/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTEyMjg5/OTI4LTE1NzM0ODk5/NDMtNTcxNC5qcGVn.jpeg",
+            "width": 498,
+            "height": 494
+        },
+        {
+            "type": "secondary",
+            "uri": "https://i.discogs.com/-Kb4mZrmWMraikEzEHQpUIQaVkL0zis72Suz9Af6Ci8/rs:fit/g:sm/q:90/h:436/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTEyMjg5/OTI4LTE1MzIyNjA4/MzgtOTE1MC5qcGVn.jpeg",
+            "resource_url": "https://i.discogs.com/-Kb4mZrmWMraikEzEHQpUIQaVkL0zis72Suz9Af6Ci8/rs:fit/g:sm/q:90/h:436/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTEyMjg5/OTI4LTE1MzIyNjA4/MzgtOTE1MC5qcGVn.jpeg",
+            "uri150": "https://i.discogs.com/DtcCkLcSj8dyuDAH-GiT4IZePe11a5qMMbeje4NgADg/rs:fit/g:sm/q:40/h:150/w:150/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTEyMjg5/OTI4LTE1MzIyNjA4/MzgtOTE1MC5qcGVn.jpeg",
+            "width": 600,
+            "height": 436
+        },
+        {
+            "type": "secondary",
+            "uri": "https://i.discogs.com/7d2sG5M-YvvPw4ahRQ-Cin6rREkc79JrZhkCN1JWTbM/rs:fit/g:sm/q:90/h:436/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTEyMjg5/OTI4LTE1MzIyNjA4/NDItNzkyNC5qcGVn.jpeg",
+            "resource_url": "https://i.discogs.com/7d2sG5M-YvvPw4ahRQ-Cin6rREkc79JrZhkCN1JWTbM/rs:fit/g:sm/q:90/h:436/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTEyMjg5/OTI4LTE1MzIyNjA4/NDItNzkyNC5qcGVn.jpeg",
+            "uri150": "https://i.discogs.com/hwfGOSeODUGFfe50dAj3SxupfqnSyiB0f6VE5ZQrTBk/rs:fit/g:sm/q:40/h:150/w:150/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTEyMjg5/OTI4LTE1MzIyNjA4/NDItNzkyNC5qcGVn.jpeg",
+            "width": 600,
+            "height": 436
+        }
+    ],
+    "thumb": "https://i.discogs.com/BVwN9bitEH9MOJ8t7xVtsJGbqIsuuQuP2RVi5CUfjT8/rs:fit/g:sm/q:40/h:150/w:150/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTEyMjg5/OTI4LTE1NzM0ODk5/NDMtNTQ2Mi5qcGVn.jpeg",
+    "estimated_weight": 230,
+    "blocked_from_sale": false
+  }
+]
