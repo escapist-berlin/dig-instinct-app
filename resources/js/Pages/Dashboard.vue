@@ -2,6 +2,10 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import ReleasesTable from '@/Components/ReleasesTable.vue'
 import { Head } from '@inertiajs/vue3';
+import { usePage } from '@inertiajs/vue3';
+
+const { props } = usePage();
+const releases = props.releases;
 </script>
 
 <template>
@@ -15,7 +19,10 @@ import { Head } from '@inertiajs/vue3';
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                  <ReleasesTable :tableTitle="'KollektivX Records'" />
+                  <ReleasesTable
+                    :tableTitle="'KollektivX Records'"
+                    :releases="releases"
+                    />
                 </div>
             </div>
         </div>
