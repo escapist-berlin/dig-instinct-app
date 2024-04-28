@@ -10,8 +10,6 @@ return new class extends Migration
     {
         Schema::create('releases', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('user_id');
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->unsignedBigInteger('discogs_id')->nullable();
             $table->unsignedBigInteger('discogs_master_id')->nullable();
             $table->unsignedBigInteger('kollektivx_id')->nullable();
@@ -26,7 +24,7 @@ return new class extends Migration
             $table->integer('want')->nullable();
             $table->integer('num_for_sale')->nullable();
             $table->float('lowest_price')->nullable();
-            $table->string('uri')->nullable();
+            $table->text('uri')->nullable();
             $table->string('kollektivx_uri')->nullable();
             $table->boolean('kollektivx_is_raw')->default(false);
             $table->boolean('kollektivx_is_restored')->default(false);
