@@ -10,6 +10,7 @@ use App\Models\Genre;
 use App\Models\Label;
 use App\Models\Release;
 use App\Models\Style;
+use App\Models\Track;
 
 class KollektivXSeeder extends Seeder
 {
@@ -88,8 +89,34 @@ class KollektivXSeeder extends Seeder
                     $release->styles()->syncWithoutDetaching([$style->id]);
                 }
             }
-        }
 
+            foreach ($KollektivxDiscogsApiData[$index]['tracklist'] as $trackData) {
+                $track = Track::create([
+                    'release_id' => $release->id,
+                    'title' => $trackData['title'],
+                    'duration' => $trackData['duration'],
+                    'position' => $trackData['position']
+                ]);
+
+                if (isset($trackData['artists'])) {
+                    foreach ($trackData['artists'] as $artistData) {
+                        // Check if the artist already exists
+                        $artist = Artist::where('discogs_id', $artistData['id'])->first();
+
+                        // If the artist doesn't exist, create them
+                        if (!$artist) {
+                            $artist = Artist::create([
+                                'name' => $artistData['name'],
+                                'discogs_id' => $artistData['id']
+                            ]);
+                        }
+
+                        // Attach artist to track without duplicating
+                        $track->artists()->syncWithoutDetaching([$artist->id]);
+                    }
+                }
+            }
+        }
     }
 
     private function parseFormats($formats)
