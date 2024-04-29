@@ -1,5 +1,5 @@
 <script setup>
-import { defineProps, ref, computed, onMounted, watchEffect, reactive } from 'vue';
+import { ref, computed, onMounted, watchEffect, reactive } from 'vue';
 import { router, Link } from '@inertiajs/vue3'
 
 const props = defineProps({

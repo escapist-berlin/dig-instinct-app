@@ -67,7 +67,7 @@ class ReleaseController extends Controller
      */
     public function show(Release $release)
     {
-        $release->load('artists', 'labels', 'genres', 'styles'); // OPTIMIZE???
+        $release->load('artists', 'labels', 'genres', 'styles', 'tracks.artists'); // OPTIMIZE???
 
         return Inertia::render('Releases/Show', ['release' => $release]);
     }
