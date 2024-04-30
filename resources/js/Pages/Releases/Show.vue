@@ -12,8 +12,12 @@ const { release } = defineProps({
 
 const formatNames = (items) => items.map(item => item.name).join(', ');
 
+const formatLabels = (labels) => {
+  return labels.map(label => `${label.name} - ${label.pivot.catno}`).join(', ');
+};
+
 const formattedArtists = computed(() => formatNames(release.artists));
-const formattedLabels = computed(() => formatNames(release.labels));
+const formattedLabels = computed(() => formatLabels(release.labels));
 const formattedGenres = computed(() => formatNames(release.genres));
 const formattedStyles = computed(() => formatNames(release.styles));
 
@@ -43,7 +47,7 @@ const formattedReleaseDate = computed(() => {
           </div>
           <div class="md:w-2/3 md:pl-4">
             <h2 class="text-xl font-bold">{{ formattedArtists }} - {{ release.title }}</h2>
-            <p class="text-600">Label: {{ formattedLabels }} ??? CATNO ???</p>
+            <p class="text-600">Label: {{ formattedLabels }}</p>
             <p class="text-600">Format: {{ release.formats }}</p>
             <p class="text-600">Country: {{ release.country }}</p>
             <p class="text-600">Released: {{ formattedReleaseDate }}</p>

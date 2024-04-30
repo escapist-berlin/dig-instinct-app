@@ -44,7 +44,7 @@ class Release extends Model
 
     public function labels()
     {
-        return $this->belongsToMany(Label::class, 'release_label');
+        return $this->belongsToMany(Label::class, 'release_label')->withPivot('catno');
     }
 
     public function genres()

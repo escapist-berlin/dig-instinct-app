@@ -11,12 +11,22 @@ use App\Models\Label;
 use App\Models\Release;
 use App\Models\Style;
 use App\Models\Track;
+use App\Models\User;
 
 class KollektivXSeeder extends Seeder
 {
 
     public function run(): void
     {
+        // Create a default user
+        User::firstOrCreate(
+            ['email' => 'denis@denis.com'],
+            [
+                'name' => 'denis@denis.com',
+                'email' => 'denis@denis.com',
+                'password' => 'denis@denis.com'
+            ]
+        );
         // Read JSON files
         $kollektivxDataFilePath = 'storage/imports/kollektivxData.json';
         $KollektivxDiscogsApiDataFilePath = 'storage/imports/KollektivxDiscogsApiData.json';
@@ -68,8 +78,8 @@ class KollektivXSeeder extends Seeder
                     ['discogs_id' => $labelData['id']],
                     ['name' => $labelData['name']]
                 );
-                // Attach label to release without duplicating
-                $release->labels()->syncWithoutDetaching([$label->id]);
+                // Attach label to release without duplicating and store the catalog number in the pivot table
+                $release->labels()->syncWithoutDetaching([$label->id => ['catno' => $labelData['catno']]]);
             }
 
             foreach ($KollektivxDiscogsApiData[$index]['genres'] as $genreData) {
