@@ -12,12 +12,6 @@ const { release } = defineProps({
 
 const formatNames = (items) => items.map(item => item.name).join(', ');
 
-const formatLabels = (labels) => {
-  return labels.map(label => `${label.name} - ${label.pivot.catno}`).join(', ');
-};
-
-const formattedArtists = computed(() => formatNames(release.artists));
-const formattedLabels = computed(() => formatLabels(release.labels));
 const formattedGenres = computed(() => formatNames(release.genres));
 const formattedStyles = computed(() => formatNames(release.styles));
 
@@ -45,8 +39,25 @@ const formattedReleaseDate = computed(() => {
             <img :src="release.image_full_uri" alt="Cover Art" class="rounded">
           </div>
           <div class="md:w-2/3 md:pl-4">
-            <h2 class="text-xl font-bold">{{ formattedArtists }} - {{ release.title }}</h2>
-            <p class="text-600">Label: {{ formattedLabels }}</p>
+            <h2 class="text-xl font-bold">
+              <span v-for="(artist, index) in release.artists" :key="artist.id">
+                <a :href="`https://www.discogs.com/artist/${artist.discogs_id}`" class="hover:underline" target="_blank">
+                  {{ artist.name }}
+                </a>
+                <template v-if="index !== release.artists.length - 1">, </template>
+              </span>
+              - <a :href="release.uri" class="hover:underline" target="_blank">{{ release.title }}</a>
+            </h2>
+            <p class="text-600">
+              Label:
+              <span v-for="(label, index) in release.labels" :key="label.id">
+                <a :href="`https://www.discogs.com/label/${label.discogs_id}`" class="hover:underline" target="_blank">
+                  {{ label.name }}
+                </a>
+                - {{ label.pivot.catno }}
+                <template v-if="index !== release.labels.length - 1">, </template>
+              </span>
+            </p>
             <p class="text-600">Format: {{ release.formats }}</p>
             <p class="text-600">Country: {{ release.country }}</p>
             <p class="text-600">Released: {{ formattedReleaseDate }}</p>
@@ -60,7 +71,15 @@ const formattedReleaseDate = computed(() => {
             <ul>
               <li v-for="track in release.tracks" :key="track.id">
                 <span>{{ track.position }}.
-                  <span v-if="track.artists.length">{{ formatNames(track.artists) }} - </span>
+                  <span v-if="track.artists.length">
+                    <span v-for="(artist, index) in track.artists" :key="artist.id">
+                      <a :href="`https://www.discogs.com/artist/${artist.discogs_id}`" class="hover:underline" target="_blank">
+                        {{ artist.name }}
+                      </a>
+                      <template v-if="index !== track.artists.length - 1">, </template>
+                    </span>
+                    -
+                  </span>
                   {{ track.title }}
                 </span>
               </li>
