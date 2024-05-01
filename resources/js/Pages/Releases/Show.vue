@@ -35,9 +35,8 @@ const formattedReleaseDate = computed(() => {
 
   <AuthenticatedLayout>
     <template #header>
-      <h2 class="font-semibold text-xl text-gray-800 leading-tight">Releases</h2>
+      <h2 class="font-semibold text-xl text-gray-800 leading-tight">Release</h2>
     </template>
-    <!-- <div>{{ release }}</div> -->
 
     <div class="bg-gray-100 p-4">
       <div class="max-w-2xl mx-auto bg-white shadow-md rounded p-6">
@@ -67,19 +66,17 @@ const formattedReleaseDate = computed(() => {
               </li>
             </ul>
           </div>
-          <div class="md:w-1/3">
-            <div class="stats p-4 rounded shadow">
-              <h3 class="font-semibold mb-2">Stats:</h3>
-              <p><strong>Rating:</strong> {{ release.rating_average }} ({{ release.rating_count }} votes)</p>
-              <p><strong>Have:</strong> {{ release.have }}</p>
-              <p><strong>Want:</strong> {{ release.want }}</p>
-              <p v-if="release.num_for_sale"><strong>For Sale:</strong> {{ release.num_for_sale }}</p>
-              <p v-if="release.lowest_price"><strong>Lowest Price:</strong> ${{ release.lowest_price }}</p>
-              <a v-if="release.kollektivx_uri" :href="release.kollektivx_uri" target="_blank" class="text-blue-500 hover:text-blue-700">
-                View on KollektivX
-              </a>
-            </div>
-          </div>
+        </div>
+        <div class="p-4 mt-4 flex flex-col sm:flex-row items-center bg-white shadow rounded text-sm">
+          <p class="m-0"><strong>Have:</strong> {{ release.have }}</p>
+          <span class="hidden sm:inline-block mx-2">|</span>
+          <p class="m-0"><strong>Want:</strong> {{ release.want }}</p>
+          <span class="hidden sm:inline-block mx-2">|</span>
+          <p class="m-0"><strong>Rating:</strong> {{ release.rating_average }} / 5 ({{ release.rating_count }} votes)</p>
+          <span v-if="release.num_for_sale && release.lowest_price" class="hidden sm:inline-block mx-2">|</span>
+          <p class="m-0" v-if="release.num_for_sale && release.lowest_price">{{ release.num_for_sale }}<strong> copies from</strong> ${{ release.lowest_price }}</p>
+          <span v-if="release.kollektivx_uri" class="hidden sm:inline-block mx-2">|</span>
+          <a v-if="release.kollektivx_uri" :href="release.kollektivx_uri" target="_blank" class="text-blue-500 hover:text-blue-700">KollektivX</a>
         </div>
       </div>
     </div>
