@@ -1,5 +1,5 @@
 <script setup>
-import { ref, computed, onMounted, watchEffect, reactive } from 'vue';
+import { ref } from 'vue';
 import { router, Link } from '@inertiajs/vue3'
 
 const props = defineProps({
@@ -19,6 +19,7 @@ const loading = ref(false);
 
 const headers = ref([
   { title: 'Cover', key: 'image', sortable: false },
+  { title: 'Actions', key: 'actions', sortable: false },
   { title: 'Artists', key: 'artists' },
   { title: 'Title', key: 'title' },
   { title: 'Labels', key: 'labels' },
@@ -34,21 +35,27 @@ const headers = ref([
   { title: 'Want', key: 'want' },
   { title: 'In Stock', key: 'num_for_sale' },
   { title: 'Lowest Price', key: 'lowest_price' },
-  { title: 'Actions', key: 'actions', sortable: false },
 ]);
 
 
-function loadReleases({ page, itemsPerPage, sortBy }) { // TODO
-
-  router.get('/dashboard',
-  {
+function loadReleases({ page, itemsPerPage, sortBy }) { // TODO: sortBy
+  loading.value = true;
+  const params = {
+    per_page: itemsPerPage,
     page: page,
-    itemsPerPage: itemsPerPage,
-    sortBy: sortBy,
-  },
-  { preserveState: true })
+    sort_by: sortBy ? sortBy[0] : null,
+  };
 
-  router.reload()
+  router.get('/dashboard', params, {
+    preserveState: true,
+    preserveScroll: true,
+    onSuccess: (page) => {
+      props.releases.data = page.props.releases.data;
+    },
+    onFinish: () => {
+      loading.value = false;
+    }
+  });
 }
 </script>
 
@@ -75,6 +82,18 @@ function loadReleases({ page, itemsPerPage, sortBy }) { // TODO
         >
           <img :src="item.image_thumbnail_uri" alt="Cover" class="w-16 object-cover">
       </a>
+    </template>
+
+    <template v-slot:item.actions="{ item }">
+      <Link :href="route('releases.show', item.id)">
+        <v-icon
+          class="me-2"
+          size="small"
+          color="primary"
+        >
+          mdi-eye
+        </v-icon>
+      </Link>
     </template>
 
     <template v-slot:item.artists="{ item }">
@@ -133,18 +152,6 @@ function loadReleases({ page, itemsPerPage, sortBy }) { // TODO
 
     <template v-slot:item.lowest_price="{ item }">
       {{ item.lowest_price !== null && item.lowest_price !== 0 ? '$' + item.lowest_price.toFixed(2) : 'N/A' }}
-    </template>
-
-    <template v-slot:item.actions="{ item }">
-      <Link :href="route('releases.show', item.id)">
-        <v-icon
-          class="me-2"
-          size="small"
-          color="primary"
-        >
-          mdi-eye
-        </v-icon>
-      </Link>
     </template>
   </v-data-table-server>
 </template>

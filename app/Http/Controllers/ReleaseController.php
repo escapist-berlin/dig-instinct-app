@@ -9,12 +9,13 @@ use Illuminate\Support\Facades\Http;
 
 class ReleaseController extends Controller
 {
-    public function index(Request $request)
+    public function index(Request $request) // TODO: sortBy
     {
         $perPage = $request->input('per_page', 10);
+        $page = $request->input('page', 1);
 
-        $releases = Release::with(['artists', 'labels', 'genres', 'styles'])
-                            ->paginate($perPage);
+        $query = Release::with(['artists', 'labels', 'genres', 'styles']);
+        $releases = $query->paginate($perPage, ['*'], 'page', $page);
 
         return Inertia::render('Dashboard', [
             'releases' => $releases
