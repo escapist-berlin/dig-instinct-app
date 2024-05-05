@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\UserList;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Inertia\Inertia;
 
 class UserListController extends Controller
 {
@@ -34,9 +36,19 @@ class UserListController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(UserList $userList)
+    public function show(Request $request, UserList $userList)
     {
-        //
+        $perPage = $request->input('per_page', 10);
+        $page = $request->input('page', 1);
+
+        $releases = $userList->releases()
+                              ->with(['artists', 'labels', 'genres', 'styles'])
+                              ->paginate($perPage, ['*'], 'page', $page);
+
+        return Inertia::render('UserLists/Show', [
+            'list' => $userList,
+            'releases' => $releases
+        ]);
     }
 
     /**

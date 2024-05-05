@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ReleaseController;
+use App\Http\Controllers\UserListController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -27,6 +28,10 @@ Route::middleware('auth')->group(function () {
 
 Route::resource('releases', ReleaseController::class)
     ->only(['index', 'store', 'show'])
+    ->middleware(['auth', 'verified']);
+
+Route::resource('user-lists', UserListController::class)
+    ->only(['show'])
     ->middleware(['auth', 'verified']);
 
 require __DIR__.'/auth.php';
