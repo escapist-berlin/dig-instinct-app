@@ -3,11 +3,6 @@ import { ref } from 'vue';
 import { router, Link } from '@inertiajs/vue3'
 
 const props = defineProps({
-  tableTitle: {
-    type: String,
-    required: true,
-    default: "Releases"
-  },
   releases: {
     type: Object,
     required: true,
@@ -37,20 +32,23 @@ const headers = ref([
   { title: 'Lowest Price', key: 'lowest_price' },
 ]);
 
+// Getting the current path dynamically
+const currentPath = new URL(window.location.href).pathname;
 
 function loadReleases({ page, itemsPerPage, sortBy }) { // TODO: sortBy
   loading.value = true;
+
   const params = {
     per_page: itemsPerPage,
     page: page,
     sort_by: sortBy ? sortBy[0] : null,
   };
 
-  router.get('/dashboard', params, {
+  router.get(currentPath, params, {
     preserveState: true,
     preserveScroll: true,
     onSuccess: (page) => {
-      props.releases.data = page.props.releases.data;
+      props.releases.data = page.props.releases?.data;
     },
     onFinish: () => {
       loading.value = false;
@@ -70,7 +68,7 @@ function loadReleases({ page, itemsPerPage, sortBy }) { // TODO: sortBy
     v-model:items-per-page="releases.per_page"
     :headers="headers"
     :items="releases.data"
-    :items-length="releases.total"
+    :items-length="releases.total ?? 0"
     :loading="loading"
     item-value="title"
     @update:options="loadReleases"
