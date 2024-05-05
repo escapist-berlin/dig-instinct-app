@@ -20,6 +20,6 @@ class UserList extends Model
 
     public function releases()
     {
-    return $this->belongsToMany(Release::class, 'release_list');
+        return $this->belongsToMany(Release::class, 'release_list');
     }
 }

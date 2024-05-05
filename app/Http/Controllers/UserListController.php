@@ -14,7 +14,9 @@ class UserListController extends Controller
      */
     public function index()
     {
-        //
+        $userLists = Auth::user()->userLists();
+
+        return Inertia::render('UserLists/Index', ['lists' => $userLists]);
     }
 
     /**
