@@ -68,7 +68,7 @@ class ReleaseController extends Controller
      */
     public function show(Release $release)
     {
-        $release->load('artists', 'labels', 'genres', 'styles', 'tracks.artists'); // OPTIMIZE???
+        $release->load('artists', 'labels', 'genres', 'styles', 'tracks.artists', 'userLists'); // OPTIMIZE???
 
         return Inertia::render('Releases/Show', ['release' => $release]);
     }
@@ -95,5 +95,17 @@ class ReleaseController extends Controller
     public function destroy(Release $release)
     {
         //
+    }
+
+    public function updateList(Request $request, $releaseId)
+    {
+        $request->validate([
+            'list_id' => 'required|integer|exists:user_lists,id',
+        ]);
+
+        $release = Release::findOrFail($releaseId);
+        $release->userLists()->sync([$request->list_id]);
+
+        return redirect()->route('releases.show', $release)->with('success', 'List updated successfully.');
     }
 }

@@ -1,13 +1,17 @@
 <script setup>
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
-import { Head } from '@inertiajs/vue3';
-import { computed } from 'vue';
+import { Head, router } from '@inertiajs/vue3';
+import { computed, ref } from 'vue';
 
-const { release } = defineProps({
+const { release, auth } = defineProps({
   release: {
     type: Object,
     required: true
-  }
+  },
+  auth: {
+    type: Object,
+    required: true
+  },
 });
 
 const formatNames = (items) => items.map(item => item.name).join(', ');
@@ -22,6 +26,23 @@ const formattedReleaseDate = computed(() => {
     day: 'numeric'
   });
 });
+
+const currentListId = ref(release.user_lists[0]?.id || null);
+const authLists = computed(() => auth.lists);
+
+function updateList() {
+    router.post(route('releases.update-list', { release: release.id }), {
+        list_id: currentListId.value
+    }, {
+        preserveState: true,
+        onSuccess: () => {
+            console.log('List updated successfully.'); // TODO: Toast Message
+        },
+        onError: error => {
+            console.error('Error updating list:', error); // TODO: Toast Message
+        }
+    });
+}
 </script>
 
 <template>
@@ -96,6 +117,17 @@ const formattedReleaseDate = computed(() => {
           <p class="m-0" v-if="release.num_for_sale && release.lowest_price">{{ release.num_for_sale }}<strong> copies from</strong> ${{ release.lowest_price }}</p>
           <span v-if="release.kollektivx_uri" class="hidden sm:inline-block mx-2">|</span>
           <a v-if="release.kollektivx_uri" :href="release.kollektivx_uri" target="_blank" class="text-blue-500 hover:text-blue-700">KollektivX</a>
+        </div>
+
+        <div class="p-4 mt-4 flex flex-col sm:flex-row items-center bg-white shadow rounded text-sm">
+          <label for="userListSelect" class="block mb-2 text-sm font-medium text-gray-900">Current List:</label>
+          <select
+            id="userListSelect"
+            v-model="currentListId"
+            @change="updateList"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
+            <option v-for="list in authLists" :key="list.id" :value="list.id">{{ list.name }}</option>
+          </select>
         </div>
       </div>
     </div>
