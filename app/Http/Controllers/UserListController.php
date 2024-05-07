@@ -14,7 +14,7 @@ class UserListController extends Controller
      */
     public function index()
     {
-        $userLists = Auth::user()->userLists();
+        $userLists = Auth::user()->userLists()->withCount('releases')->get();
 
         return Inertia::render('UserLists/Index', ['lists' => $userLists]);
     }

@@ -60,6 +60,11 @@ const showingNavigationDropdown = ref(false);
 
                                   <template #content>
                                     <DropdownLink
+                                      :href="route('user-lists.index')"
+                                    >
+                                      All Lists
+                                    </DropdownLink>
+                                    <DropdownLink
                                       v-for="list in $page.props.auth.lists"
                                       :key="list.id"
                                       :href="route('user-lists.show', { id: list.id })"
@@ -178,6 +183,11 @@ const showingNavigationDropdown = ref(false);
                           </template>
 
                           <template #content>
+                            <DropdownLink
+                              :href="route('user-lists.index')"
+                            >
+                              All Lists
+                            </DropdownLink>
                             <DropdownLink
                               v-for="list in $page.props.auth.lists"
                               :key="list.id"

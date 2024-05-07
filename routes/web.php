@@ -39,7 +39,7 @@ Route::resource('releases', ReleaseController::class)
     ->middleware(['auth', 'verified']);
 
 Route::resource('user-lists', UserListController::class)
-    ->only(['show'])
+    ->only(['index', 'show'])
     ->middleware(['auth', 'verified']);
 
 require __DIR__.'/auth.php';
