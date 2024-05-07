@@ -25,6 +25,11 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
+    Route::post('/releases/{release}/tracks/{track}/like', [ReleaseController::class, 'likeTrack'])
+        ->name('releases.like-track');
+    Route::delete('/releases/{release}/tracks/{track}/unlike', [ReleaseController::class, 'unlikeTrack'])
+        ->name('releases.unlike-track');
+
     Route::post('releases/{release}/update-list', [ReleaseController::class, 'updateList'])
         ->name('releases.update-list');
 });

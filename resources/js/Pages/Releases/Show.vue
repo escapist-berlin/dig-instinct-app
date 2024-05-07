@@ -1,11 +1,15 @@
 <script setup>
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { Head, router } from '@inertiajs/vue3';
-import { computed, ref } from 'vue';
+import { computed, ref, reactive, toRefs } from 'vue';
 
-const { release, auth } = defineProps({
+const { release, favoriteTrackIds, auth } = defineProps({
   release: {
     type: Object,
+    required: true
+  },
+  favoriteTrackIds: {
+    type: Array,
     required: true
   },
   auth: {
@@ -28,13 +32,14 @@ const formattedReleaseDate = computed(() => {
 });
 
 const currentListId = ref(release.user_lists[0]?.id || null);
-const authLists = computed(() => auth.lists);
+const userLists = computed(() => auth.lists);
 
 function updateList() {
     router.post(route('releases.update-list', { release: release.id }), {
         list_id: currentListId.value
     }, {
         preserveState: true,
+        preserveScroll: true,
         onSuccess: () => {
             console.log('List updated successfully.'); // TODO: Toast Message
         },
@@ -42,6 +47,35 @@ function updateList() {
             console.error('Error updating list:', error); // TODO: Toast Message
         }
     });
+}
+
+const tracksState = reactive({
+  tracks: release.tracks.map(track => ({
+    ...track,
+    is_favorite: favoriteTrackIds.includes(track.id)
+  }))
+});
+
+// Export `tracks` for use in the template - CHECK: Needed?
+const { tracks } = toRefs(tracksState);
+
+function toggleLike(track) {
+  // Determine the action based on the current favorite status
+  const action = track.is_favorite ? 'unlike' : 'like';
+  const method = track.is_favorite ? 'delete' : 'post';
+  const url = `/releases/${track.release_id}/tracks/${track.id}/${action}`;
+
+  // Common options for both delete and post requests
+  const options = {
+    preserveScroll: true,
+    preserveState: true,
+    onSuccess: (page) => {
+      track.is_favorite = !track.is_favorite;
+    }
+  };
+
+  // Call the Inertia delete or post request dynamically
+  router[method](url, method === 'post' ? {} : options, method === 'post' ? options : undefined);
 }
 </script>
 
@@ -90,7 +124,7 @@ function updateList() {
           <div class="md:w-2/3">
             <h3 class="font-semibold mb-2">Tracklist:</h3>
             <ul>
-              <li v-for="track in release.tracks" :key="track.id">
+              <li v-for="track in tracks" :key="track.id">
                 <span>{{ track.position }}.
                   <span v-if="track.artists.length">
                     <span v-for="(artist, index) in track.artists" :key="artist.id">
@@ -102,6 +136,15 @@ function updateList() {
                     -
                   </span>
                   {{ track.title }}
+
+                  <button @click="toggleLike(track)">
+                    <span v-if="track.is_favorite" class="text-red-500">
+                      ♥
+                    </span>
+                    <span v-else class="text-gray-400">
+                      ♡
+                    </span>
+                  </button>
                 </span>
               </li>
             </ul>
@@ -126,7 +169,7 @@ function updateList() {
             v-model="currentListId"
             @change="updateList"
             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
-            <option v-for="list in authLists" :key="list.id" :value="list.id">{{ list.name }}</option>
+            <option v-for="list in userLists" :key="list.id" :value="list.id">{{ list.name }}</option>
           </select>
         </div>
       </div>

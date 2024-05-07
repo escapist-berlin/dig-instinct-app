@@ -24,4 +24,9 @@ class Track extends Model
     {
         return $this->belongsToMany(Artist::class, 'artist_track');
     }
+
+    public function likedByUsers()
+    {
+        return $this->belongsToMany(User::class, 'user_track');
+    }
 }

@@ -70,7 +70,18 @@ class ReleaseController extends Controller
     {
         $release->load('artists', 'labels', 'genres', 'styles', 'tracks.artists', 'userLists'); // OPTIMIZE???
 
-        return Inertia::render('Releases/Show', ['release' => $release]);
+        // Get the IDs of the tracks in this release
+        $trackIds = $release->tracks->pluck('id');
+        // Get the current user
+        $user = auth()->user();
+        // Check which of these track IDs are marked as favorites by the user
+        $favoriteTrackIds = $user->likedTracks()->whereIn('track_id', $trackIds)->pluck('track_id');
+
+        // Return the release and the IDs of the favorite tracks
+        return Inertia::render('Releases/Show', [
+            'release' => $release,
+            'favoriteTrackIds' => $favoriteTrackIds
+        ]);
     }
 
     /**
@@ -95,6 +106,22 @@ class ReleaseController extends Controller
     public function destroy(Release $release)
     {
         //
+    }
+
+    public function likeTrack(Request $request, $releaseId, $trackId) // TODO: REFACTOR
+    {
+        $user = $request->user();
+        $user->likedTracks()->syncWithoutDetaching([$trackId]);
+
+        return redirect()->route('releases.show', $releaseId)->with('success', 'Track liked successfully.');
+    }
+
+    public function unlikeTrack(Request $request, $releaseId, $trackId) // TODO: REFACTOR
+    {
+        $user = $request->user();
+        $user->likedTracks()->detach($trackId);
+
+        return redirect()->route('releases.show', $releaseId)->with('success', 'Track unliked successfully.');
     }
 
     public function updateList(Request $request, $releaseId)

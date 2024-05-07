@@ -54,4 +54,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(UserList::class);
     }
+
+    public function likedTracks()
+    {
+        return $this->belongsToMany(Track::class, 'user_track');
+    }
 }
