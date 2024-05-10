@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\UserList;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
@@ -30,9 +31,15 @@ class UserListController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Request $request): RedirectResponse
     {
-        //
+        $validatedData = $request->validate([
+            'name' => 'required|string|max:255',
+        ]);
+
+        $request->user()->userLists()->create($validatedData);
+
+        return redirect(route('user-lists.index'));
     }
 
     /**

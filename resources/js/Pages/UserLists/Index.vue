@@ -1,42 +1,73 @@
 <script setup>
-import { ref, reactive } from 'vue';
+import { ref, reactive, nextTick } from 'vue';
 import { Head, Link, router } from '@inertiajs/vue3';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
+import { timeAgo } from '@/utils/timeAgo';
 
-const { lists } = defineProps({
+const props = defineProps({
   lists: {
     type: Object,
     required: true
   }
 });
 
-const headers = reactive([
-{ title: 'Actions', key: 'actions', sortable: false },
+const headers = [
   { title: 'Name', key: 'name', sortable: true },
   { title: 'Releases', key: 'releases_count', sortable: true },
   { title: 'Creation Date', key: 'created_at', sortable: true },
-  { title: 'Last Updated', key: 'updated_at', sortable: true }
-]);
+  { title: 'Last Updated', key: 'updated_at', sortable: true },
+  { key: 'delete_action', sortable: false },
+];
+const listsWithEditing = reactive(props.lists.map(list => ({
+  ...list,
+  isEditing: false
+})));
+const nameInput = ref(null);
 
-function timeAgo(dateString) { // TODO: Move to globals
-  const date = new Date(dateString);
-  const now = new Date();
-  const seconds = Math.floor((now - date) / 1000);
-  const minutes = Math.floor(seconds / 60);
-  const hours = Math.floor(minutes / 60);
-  const days = Math.floor(hours / 24);
-  const weeks = Math.floor(days / 7);
-  const months = Math.floor(days / 30);
-  const years = Math.floor(days / 365);
+function focusInput() {
+  nextTick(() => {
+    nameInput.value?.focus();
+  });
+}
 
-  if (years > 0) return `${years} year${years > 1 ? 's' : ''} ago`;
-  if (months > 0) return `${months} month${months > 1 ? 's' : ''} ago`;
-  if (weeks > 0) return `${weeks} week${weeks > 1 ? 's' : ''} ago`;
-  if (days > 0) return `${days} day${days > 1 ? 's' : ''} ago`;
-  if (hours > 0) return `${hours} hour${hours > 1 ? 's' : ''} ago`;
-  if (minutes > 0) return `${minutes} minute${minutes > 1 ? 's' : ''} ago`;
-  if (seconds > 0) return `${seconds} second${seconds > 1 ? 's' : ''} ago`;
-  return 'just now';
+function addNewList() {
+  listsWithEditing.push({
+    id: null, // No ID until it's saved to the database
+    name: '',
+    isEditing: true
+  });
+  focusInput();
+}
+
+function toggleEditing(list) {
+  list.isEditing = !list.isEditing;
+  if (list.isEditing) focusInput();
+}
+
+function createOrUpdateList(list) {
+  let url = '/user-lists';
+  let method = 'post';
+
+  // for update request
+  if (list.id) {
+    url += `/${list.id}`;
+    method = 'patch';
+  }
+
+  router[method](url, list, {
+    preserveState: true,
+    onSuccess: (page) => {
+      if (!list.id) {
+        list.id = page.props.lists[page.props.lists.length - 1].id;
+        list.releases_count = page.props.lists[page.props.lists.length - 1].releases_count;
+      }
+      list.isEditing = false;
+    }
+  });
+}
+
+function deleteList(item) {
+  router.post('/delete-list', { id: item.id });
 }
 </script>
 
@@ -53,24 +84,98 @@ function timeAgo(dateString) { // TODO: Move to globals
         <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
           <v-data-table
             :headers="headers"
-            :items="lists"
+            :items="listsWithEditing"
           >
-            <template v-slot:item.actions="{ item }">
-              <Link :href="route('user-lists.show', item.id)">
-                <v-icon
-                  class="me-2"
-                  size="small"
+            <template v-slot:top>
+              <v-toolbar flat>
+                <v-toolbar-title>My Lists</v-toolbar-title>
+                <v-spacer />
+                <v-btn
+                  class="mb-2"
                   color="primary"
+                  @click="addNewList"
                 >
-                  mdi-eye
-                </v-icon>
-              </Link>
+                  New List
+              </v-btn>
+              </v-toolbar>
             </template>
+
+            <template #item.name="{ item }">
+              <div v-if="item.isEditing">
+                <v-icon
+                  v-if="!item.isEditing"
+                  @click="toggleEditing(item)"
+                  class="mr-2"
+                  color="primary"
+                  size="small"
+                >
+                  mdi-pencil
+                </v-icon>
+
+                <v-icon
+                  v-if="item.isEditing"
+                  @click="createOrUpdateList(item)"
+                  class="mr-2"
+                  color="primary"
+                  size="small"
+                  >
+                  mdi-content-save
+                </v-icon>
+
+                <input
+                  v-model="item.name"
+                  placeholder="Edit Name"
+                  outlined
+                  ref="nameInput"
+                />
+              </div>
+
+              <div v-else>
+                <v-icon
+                  v-if="!item.isEditing"
+                  @click="toggleEditing(item)"
+                  class="mr-2"
+                  color="primary"
+                  size="small"
+                >
+                  mdi-pencil
+                </v-icon>
+
+                <v-icon
+                  v-if="item.isEditing"
+                  @click="createOrUpdateList(item)"
+                  class="mr-2"
+                  color="primary"
+                  size="small"
+                  >
+                  mdi-content-save
+                </v-icon>
+
+                <Link
+                  :href="route('user-lists.show', { user_list: item.id })"
+                  class="hover:underline"
+                  >
+                  {{ item.name }}
+                </Link>
+              </div>
+            </template>
+
             <template v-slot:item.created_at="{ item }">
               {{ timeAgo(item.created_at) }}
             </template>
             <template v-slot:item.updated_at="{ item }">
               {{ timeAgo(item.updated_at) }}
+            </template>
+
+            <template v-slot:item.delete_action="{ item }">
+              <v-icon
+                @click="deleteList(item)"
+                class="mr-2"
+                color="primary"
+                ssize="small"
+                >
+                mdi-delete
+              </v-icon>
             </template>
           </v-data-table>
         </div>
