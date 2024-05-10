@@ -62,7 +62,10 @@ function createOrUpdateList(list) {
         list.releases_count = page.props.lists[page.props.lists.length - 1].releases_count;
       }
       list.isEditing = false;
-    }
+    },
+    onError: (errors) => {
+      console.log(errors); // TODO: Validation
+    },
   });
 }
 

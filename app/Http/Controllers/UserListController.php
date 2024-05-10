@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\UserListRequest;
 use App\Models\UserList;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Inertia\Inertia;
 
 class UserListController extends Controller
@@ -31,13 +33,9 @@ class UserListController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request): RedirectResponse
+    public function store(UserListRequest $request): RedirectResponse
     {
-        $validatedData = $request->validate([
-            'name' => 'required|string|max:255',
-        ]);
-
-        $request->user()->userLists()->create($validatedData);
+        $request->user()->userLists()->create($request->validated());
 
         return redirect(route('user-lists.index'));
     }
@@ -71,9 +69,13 @@ class UserListController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, UserList $userList)
+    public function update(UserListRequest $request, UserList $userList): RedirectResponse
     {
-        //
+        Gate::authorize('update', $userList);
+
+        $userList->update($request->validated());
+
+        return redirect(route('user-lists.index'));
     }
 
     /**
