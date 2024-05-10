@@ -83,6 +83,8 @@ class UserListController extends Controller
      */
     public function destroy(UserList $userList)
     {
-        //
+        $userList->delete();
+
+        return redirect(route('user-lists.index'));
     }
 }

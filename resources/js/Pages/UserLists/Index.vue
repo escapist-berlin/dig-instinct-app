@@ -64,13 +64,25 @@ function createOrUpdateList(list) {
       list.isEditing = false;
     },
     onError: (errors) => {
-      console.log(errors); // TODO: Validation
+      console.log(errors); // TODO: Error Handling & Validation
     },
   });
 }
 
 function deleteList(item) {
-  router.post('/delete-list', { id: item.id });
+  router.delete(`/user-lists/${item.id}`, {
+    onBefore: () => confirm(`Are you sure you want to delete '${item.name}' list?`),
+    onSuccess: (page) => {
+      // Update local state by filtering out the deleted list
+      const deletedListIndex = listsWithEditing.findIndex(list => list.id === item.id);
+      if (deletedListIndex > -1) {
+        listsWithEditing.splice(deletedListIndex, 1);
+      }
+    },
+    onError: (error) => {
+      console.error('Error deleting the list:', error); // TODO: Error Handling
+    }
+  });
 }
 </script>
 
