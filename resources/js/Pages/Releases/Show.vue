@@ -1,5 +1,6 @@
 <script setup>
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
+import BackLink from '@/Components/BackLink.vue';
 import { Head, router } from '@inertiajs/vue3';
 import { computed, ref, reactive, toRefs } from 'vue';
 
@@ -84,7 +85,10 @@ function toggleLike(track) {
 
   <AuthenticatedLayout>
     <template #header>
-      <h2 class="font-semibold text-xl text-gray-800 leading-tight">Release</h2>
+      <div class="flex items-center justify-between">
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight">Release</h2>
+        <BackLink>Go Back</BackLink>
+      </div>
     </template>
 
     <div class="bg-gray-100 p-4">

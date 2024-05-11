@@ -2,6 +2,7 @@
 import { ref, reactive, nextTick } from 'vue';
 import { Head, Link, router } from '@inertiajs/vue3';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
+import BackLink from '@/Components/BackLink.vue';
 import { timeAgo } from '@/utils/timeAgo';
 
 const props = defineProps({
@@ -91,7 +92,10 @@ function deleteList(item) {
 
   <AuthenticatedLayout>
     <template #header>
-      <h2 class="font-semibold text-xl text-gray-800 leading-tight">Lists</h2>
+      <div class="flex items-center justify-between">
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight">Lists</h2>
+        <BackLink>Go Back</BackLink>
+      </div>
     </template>
 
     <div class="py-12">

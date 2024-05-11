@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from 'vue';
+import { ref, onMounted } from 'vue';
 import { router, Link } from '@inertiajs/vue3'
 
 const props = defineProps({
@@ -41,7 +41,6 @@ function loadReleases({ page, itemsPerPage, sortBy }) { // TODO: sortBy
   const params = {
     per_page: itemsPerPage,
     page: page,
-    sort_by: sortBy ? sortBy[0] : null,
   };
 
   router.get(currentPath, params, {
@@ -54,7 +53,16 @@ function loadReleases({ page, itemsPerPage, sortBy }) { // TODO: sortBy
       loading.value = false;
     }
   });
+
 }
+
+onMounted(() => {
+  const urlParams = new URLSearchParams(window.location.search);
+  const page = parseInt(urlParams.get('page') || '1');
+  const perPage = parseInt(urlParams.get('per_page') || '10');
+
+  loadReleases({ page, itemsPerPage: perPage });
+});
 </script>
 
 <template>
@@ -69,6 +77,7 @@ function loadReleases({ page, itemsPerPage, sortBy }) { // TODO: sortBy
     :headers="headers"
     :items="releases.data"
     :items-length="releases.total ?? 0"
+    :page="releases.current_page"
     :loading="loading"
     item-value="title"
     @update:options="loadReleases"

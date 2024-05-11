@@ -35,6 +35,10 @@ class HandleInertiaRequests extends Middleware
                 'user' => $request->user(),
                 'lists' => $request->user()?->userLists()->get(),
             ],
+            'urlPrev' => function() {
+                $prevUrl = url()->previous();
+                return ($prevUrl !== route('login') && $prevUrl && $prevUrl !== url()->current()) ? $prevUrl : null;
+            },
         ];
     }
 }
