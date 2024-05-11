@@ -188,6 +188,7 @@ function deleteList(item) {
 
             <template v-slot:item.delete_action="{ item }">
               <v-icon
+                v-if="item.id"
                 @click="deleteList(item)"
                 class="mr-2"
                 color="primary"
