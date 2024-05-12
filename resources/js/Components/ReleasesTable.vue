@@ -35,12 +35,33 @@ const headers = ref([
 // Getting the current path dynamically
 const currentPath = new URL(window.location.href).pathname;
 
+// function loadReleases({ page, itemsPerPage, sortBy }) { // TODO: sortBy
+//   loading.value = true;
+
+//   const params = {
+//     per_page: itemsPerPage,
+//     page: page,
+//   };
+
+//   router.get(currentPath, params, {
+//     preserveState: true,
+//     preserveScroll: true,
+//     onSuccess: (page) => {
+//       props.releases.data = page.props.releases?.data;
+//     },
+//     onFinish: () => {
+//       loading.value = false;
+//     }
+//   });
+// }
+
 function loadReleases({ page, itemsPerPage, sortBy }) { // TODO: sortBy
   loading.value = true;
 
   const params = {
     per_page: itemsPerPage,
     page: page,
+    search: search.value,
   };
 
   router.get(currentPath, params, {
@@ -53,7 +74,6 @@ function loadReleases({ page, itemsPerPage, sortBy }) { // TODO: sortBy
       loading.value = false;
     }
   });
-
 }
 
 onMounted(() => {
@@ -68,9 +88,10 @@ onMounted(() => {
 <template>
   <v-text-field
     v-model="search"
-    label="Search"
     class="mb-2"
-  ></v-text-field>
+    placeholder="Search by Artist, Title, Label or 'Artist - Title'"
+    @input="loadReleases"
+  />
 
   <v-data-table-server
     v-model:items-per-page="releases.per_page"

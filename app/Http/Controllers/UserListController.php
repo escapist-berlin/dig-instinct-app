@@ -47,9 +47,28 @@ class UserListController extends Controller
     {
         $perPage = $request->input('per_page', 10);
         $page = $request->input('page', 1);
+        $search = $request->input('search', '');
 
         $releases = $userList->releases()
                               ->with(['artists', 'labels', 'genres', 'styles'])
+                              ->when($search, function ($query, $search) {
+                                  // Check if the search includes a hyphen, suggesting an "artist - title" search
+                                  if (strpos($search, '-') !== false) {
+                                      list($artistPart, $titlePart) = explode('-', $search, 2);
+                                      $query->whereHas('artists', function ($q) use ($artistPart) {
+                                          $q->where('name', 'like', '%' . trim($artistPart) . '%');
+                                      })->where('title', 'like', '%' . trim($titlePart) . '%');
+                                  } else {
+                                      // Apply a general search
+                                      $query->where('title', 'like', '%' . $search . '%')
+                                            ->orWhereHas('artists', function ($q) use ($search) {
+                                                $q->where('name', 'like', '%' . $search . '%');
+                                            })
+                                            ->orWhereHas('labels', function ($q) use ($search) {
+                                                $q->where('name', 'like', '%' . $search . '%');
+                                            });
+                                  }
+                              })
                               ->paginate($perPage, ['*'], 'page', $page);
 
         return Inertia::render('UserLists/Show', [
