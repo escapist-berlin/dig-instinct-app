@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
 
 class Release extends Model
 {
@@ -70,5 +71,25 @@ class Release extends Model
     public function userLists()
     {
         return $this->belongsToMany(UserList::class, 'release_list');
+    }
+
+    public function scopeWithSearch(Builder $query, $search)
+    {
+        if (!empty($search)) {
+            if (strpos($search, '-') !== false) {
+                list($artistPart, $titlePart) = explode('-', $search, 2);
+                $query->whereHas('artists', function ($q) use ($artistPart) {
+                    $q->where('name', 'like', '%' . trim($artistPart) . '%');
+                })->where('title', 'like', '%' . trim($titlePart) . '%');
+            } else {
+                $query->where('title', 'like', '%' . $search . '%')
+                      ->orWhereHas('artists', function ($q) use ($search) {
+                          $q->where('name', 'like', '%' . $search . '%');
+                      })
+                      ->orWhereHas('labels', function ($q) use ($search) {
+                          $q->where('name', 'like', '%' . $search . '%');
+                      });
+            }
+        }
     }
 }
