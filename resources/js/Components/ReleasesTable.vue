@@ -9,7 +9,22 @@ const props = defineProps({
   },
 });
 
-const search = ref(''); // TODO
+const searchOption = ref(null);
+const query = ref('');
+const searchOptions = [
+  { text: 'By Artist', value: 'artist' },
+  { text: 'By Title', value: 'title' },
+  { text: 'By Artist - Title', value: 'artist-title' },
+  { text: 'By Label', value: 'label' },
+  { text: 'By Country', value: 'country' },
+  { text: 'By Genre', value: 'genre' },
+  { text: 'By Style', value: 'style' },
+];
+
+const handleSearchOptionChange = () => {
+  query.value = '';
+};
+
 const loading = ref(false);
 
 const headers = ref([
@@ -61,7 +76,8 @@ function loadReleases({ page, itemsPerPage, sortBy }) { // TODO: sortBy
   const params = {
     per_page: itemsPerPage,
     page: page,
-    search: search.value,
+    query: query.value,
+    search_option: searchOption.value,
   };
 
   router.get(currentPath, params, {
@@ -86,13 +102,6 @@ onMounted(() => {
 </script>
 
 <template>
-  <v-text-field
-    v-model="search"
-    class="mb-2"
-    placeholder="Search by Artist, Title, Label or 'Artist - Title'"
-    @input="loadReleases"
-  />
-
   <v-data-table-server
     v-model:items-per-page="releases.per_page"
     :headers="headers"
@@ -100,9 +109,30 @@ onMounted(() => {
     :items-length="releases.total ?? 0"
     :page="releases.current_page"
     :loading="loading"
-    item-value="title"
     @update:options="loadReleases"
   >
+    <template #top>
+      <div class="flex items-center space-x-4">
+        <v-select
+          v-model="searchOption"
+          :items="searchOptions"
+          label="Select Search Option"
+          item-title="text"
+          item-value="value"
+          class="mb-2"
+          @update:model-value="handleSearchOptionChange"
+        />
+
+        <v-text-field
+          v-model="query"
+          :disabled="!searchOption"
+          class="mb-2"
+          placeholder="Type your search query"
+          @input="loadReleases"
+        />
+      </div>
+    </template>
+
     <template v-slot:item.image="{ item }">
       <a
         :href="item.uri"

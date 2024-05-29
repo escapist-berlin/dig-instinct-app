@@ -73,23 +73,52 @@ class Release extends Model
         return $this->belongsToMany(UserList::class, 'release_list');
     }
 
-    public function scopeWithSearch(Builder $query, $search)
+    public function scopeWithSearch(Builder $query, $searchQuery, $searchOption)
     {
-        if (!empty($search)) {
-            if (strpos($search, '-') !== false) {
-                list($artistPart, $titlePart) = explode('-', $search, 2);
-                $query->whereHas('artists', function ($q) use ($artistPart) {
-                    $q->where('name', 'like', '%' . trim($artistPart) . '%');
-                })->where('title', 'like', '%' . trim($titlePart) . '%');
-            } else {
-                $query->where('title', 'like', '%' . $search . '%')
-                      ->orWhereHas('artists', function ($q) use ($search) {
-                          $q->where('name', 'like', '%' . $search . '%');
-                      })
-                      ->orWhereHas('labels', function ($q) use ($search) {
-                          $q->where('name', 'like', '%' . $search . '%');
-                      });
+        if (!empty($searchQuery)) {
+            switch ($searchOption) {
+                case 'artist':
+                    $query->whereHas('artists', function ($q) use ($searchQuery) {
+                        $q->where('name', 'like', '%' . $searchQuery . '%');
+                    });
+                    break;
+
+                case 'title':
+                    $query->where('title', 'like', '%' . $searchQuery . '%');
+                    break;
+
+                case 'artist-title':
+                    if (strpos($searchQuery, '-') !== false) {
+                        list($artistPart, $titlePart) = explode('-', $searchQuery, 2);
+                        $query->whereHas('artists', function ($q) use ($artistPart) {
+                            $q->where('name', 'like', '%' . trim($artistPart) . '%');
+                        })->where('title', 'like', '%' . trim($titlePart) . '%');
+                    }
+                    break;
+
+                case 'label':
+                    $query->whereHas('labels', function ($q) use ($searchQuery) {
+                        $q->where('name', 'like', '%' . $searchQuery . '%');
+                    });
+                    break;
+
+                case 'country':
+                    $query->where('country', 'like', '%' . $searchQuery . '%');
+                    break;
+
+                case 'genre':
+                    $query->whereHas('genres', function ($q) use ($searchQuery) {
+                        $q->where('name', 'like', '%' . $searchQuery . '%');
+                    });
+                    break;
+
+                case 'style':
+                    $query->whereHas('styles', function ($q) use ($searchQuery) {
+                        $q->where('name', 'like', '%' . $searchQuery . '%');
+                    });
+                    break;
             }
         }
     }
+
 }

@@ -47,11 +47,12 @@ class UserListController extends Controller
     {
         $perPage = $request->input('per_page', 10);
         $page = $request->input('page', 1);
-        $search = $request->input('search', '');
+        $query = $request->input('query', '');
+        $searchOption = $request->input('search_option', '');
 
         $releases = $userList->releases()
                               ->with(['artists', 'labels', 'genres', 'styles'])
-                              ->tap(fn ($query) => $query->withSearch($search))
+                              ->tap(fn ($q) => $q->withSearch($query, $searchOption))
                               ->paginate($perPage, ['*'], 'page', $page);
 
         return Inertia::render('UserLists/Show', [
