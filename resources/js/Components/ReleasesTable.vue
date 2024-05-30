@@ -102,6 +102,36 @@ onMounted(() => {
 </script>
 
 <template>
+  <v-container>
+    <v-row class="d-flex justify-center align-center">
+      <v-col cols="6" md="4">
+        <v-select
+          v-model="searchOption"
+          :items="searchOptions"
+          label="Select Search Option"
+          item-title="text"
+          item-value="value"
+          @update:model-value="handleSearchOptionChange"
+          clearable
+          chips
+          density="compact"
+          hide-details
+          variant="outlined"
+        />
+      </v-col>
+      <v-col cols="6" md="6">
+        <v-text-field
+          v-model="query"
+          :disabled="!searchOption"
+          placeholder="Type your search query"
+          @input="loadReleases"
+          density="compact"
+          hide-details
+          variant="outlined"
+        />
+      </v-col>
+    </v-row>
+  </v-container>
   <v-data-table-server
     v-model:items-per-page="releases.per_page"
     :headers="headers"
@@ -110,29 +140,8 @@ onMounted(() => {
     :page="releases.current_page"
     :loading="loading"
     @update:options="loadReleases"
+    color="success"
   >
-    <template #top>
-      <div class="flex items-center space-x-4">
-        <v-select
-          v-model="searchOption"
-          :items="searchOptions"
-          label="Select Search Option"
-          item-title="text"
-          item-value="value"
-          class="mb-2"
-          @update:model-value="handleSearchOptionChange"
-        />
-
-        <v-text-field
-          v-model="query"
-          :disabled="!searchOption"
-          class="mb-2"
-          placeholder="Type your search query"
-          @input="loadReleases"
-        />
-      </div>
-    </template>
-
     <template v-slot:item.image="{ item }">
       <a
         :href="item.uri"
