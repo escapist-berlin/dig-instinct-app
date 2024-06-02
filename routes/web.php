@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DiscogsController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ReleaseController;
 use App\Http\Controllers\UserListController;
@@ -32,6 +33,9 @@ Route::middleware('auth')->group(function () {
 
     Route::post('releases/{release}/update-list', [ReleaseController::class, 'updateList'])
         ->name('releases.update-list');
+
+    Route::get('/auth/discogs', [DiscogsController::class, 'redirectToDiscogs'])->name('discogs.auth');
+    Route::get('/auth/discogs/callback', [DiscogsController::class, 'handleCallback'])->name('discogs.callback');
 });
 
 Route::resource('releases', ReleaseController::class)
