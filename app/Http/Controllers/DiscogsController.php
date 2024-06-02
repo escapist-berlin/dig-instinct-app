@@ -32,13 +32,16 @@ class DiscogsController extends Controller
         $temporaryCredentials = Session::get('oauth.temp.credentials');
         $tokenCredentials = $this->server->getTokenCredentials($temporaryCredentials, $request->oauth_token, $request->oauth_verifier);
 
-        // Store the token credentials in the user model
+        // Fetch discogs username
+        $discogsUsername = $this->server->getUserScreenName($tokenCredentials);
+
+        // Store the discogs_username and discogs_token in the user model
         $user = auth()->user();
-        $user->discogs_id = $tokenCredentials->getIdentifier();
+        $user->discogs_username = $discogsUsername;
         $user->discogs_token = $tokenCredentials->getSecret();
         $user->save();
 
         // Redirect to a desired route
-        return redirect()->route('dashboard')->with('status', 'Discogs account linked successfully!');
+        return redirect()->back()->with('status', 'Discogs account linked successfully!');
     }
 }

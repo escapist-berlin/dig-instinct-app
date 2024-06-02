@@ -32,7 +32,9 @@ class DiscogsServer extends Server
 
     public function userDetails($data, TokenCredentials $tokenCredentials): User
     {
-        $data = json_decode($data, true);
+        if (is_string($data)) {
+            $data = json_decode($data, true);
+        }
 
         $user = new User();
         $user->uid = $data['id'];
@@ -56,7 +58,9 @@ class DiscogsServer extends Server
 
     public function userScreenName($data, TokenCredentials $tokenCredentials): ?string
     {
-        $data = json_decode($data, true);
+        if (is_string($data)) {
+            $data = json_decode($data, true);
+        }
 
         return $data['username'];
     }
