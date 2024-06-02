@@ -11,7 +11,8 @@ class UserList extends Model
 
     protected $fillable = [
         'name',
-        'user_id'
+        'user_id',
+        'is_default',
     ];
 
     public function user()
