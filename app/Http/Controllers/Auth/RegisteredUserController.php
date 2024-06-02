@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Models\UserList;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -46,6 +47,17 @@ class RegisteredUserController extends Controller
 
         Auth::login($user);
 
-        return redirect(route('dashboard', absolute: false));
+        // Retrieve the "KollektivX Archive" list for the authenticated user
+        $user = $request->user();
+        $kollektivXArchiveList = UserList::where('user_id', $user->id)
+                                          ->where('name', 'KollektivX Archive')
+                                          ->first();
+
+        // If the list exists, redirect to it, otherwise redirect to a default route
+        if ($kollektivXArchiveList) {
+            return redirect()->route('user-lists.show', ['user_list' => $kollektivXArchiveList->id]);
+        } else {
+            return redirect()->intended(route('dashboard', absolute: false));
+        }
     }
 }
