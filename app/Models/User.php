@@ -22,7 +22,8 @@ class User extends Authenticatable
         'email',
         'password',
         'discogs_username',
-        'discogs_token',
+        'discogs_oauth_token',
+        'discogs_oauth_token_secret',
     ];
 
     /**

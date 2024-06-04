@@ -151,7 +151,7 @@ function deleteList(item) {
 
               <div v-else>
                 <v-icon
-                  v-if="!item.isEditing"
+                  v-if="!item.isEditing && !item.is_default"
                   @click="toggleEditing(item)"
                   class="mr-2"
                   color="primary"
@@ -161,7 +161,7 @@ function deleteList(item) {
                 </v-icon>
 
                 <v-icon
-                  v-if="item.isEditing"
+                  v-if="item.isEditing && !item.is_default"
                   @click="createOrUpdateList(item)"
                   class="mr-2"
                   color="primary"

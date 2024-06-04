@@ -33,7 +33,7 @@ class HandleInertiaRequests extends Middleware
             ...parent::share($request),
             'auth' => [
                 'user' => $request->user() ? array_merge($request->user()->only('name'), [
-                    'discogs_connected' => !empty($request->user()->discogs_username) && !empty($request->user()->discogs_token),
+                    'discogs_connected' => !empty($request->user()->discogs_username) && !empty($request->user()->discogs_oauth_token) && !empty($request->user()->discogs_oauth_token_secret),
                 ]) : null,
                 'lists' => $request->user()?->userLists()->get(),
             ],
