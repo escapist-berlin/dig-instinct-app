@@ -7,6 +7,7 @@ use App\Http\Controllers\UserListController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+use Laravel\Socialite\Facades\Socialite;
 
 Route::get('/', function () {
     return Inertia::render('Welcome', [
@@ -34,8 +35,10 @@ Route::middleware('auth')->group(function () {
     Route::post('releases/{release}/update-list', [ReleaseController::class, 'updateList'])
         ->name('releases.update-list');
 
-    Route::get('/auth/discogs', [DiscogsController::class, 'redirectToDiscogs'])->name('discogs.auth');
-    Route::get('/auth/discogs/callback', [DiscogsController::class, 'handleCallback'])->name('discogs.callback');
+    Route::get('/auth/discogs', [DiscogsController::class, 'redirectToDiscogs'])
+        ->name('discogs.redirect');
+    Route::get('/auth/discogs/callback', [DiscogsController::class, 'handleDiscogsCallback'])
+        ->name('discogs.callback');
 });
 
 Route::resource('releases', ReleaseController::class)

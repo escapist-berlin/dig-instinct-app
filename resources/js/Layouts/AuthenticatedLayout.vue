@@ -108,7 +108,7 @@ const showingNavigationDropdown = ref(false);
                                         <DropdownLink :href="route('profile.edit')"> Profile </DropdownLink>
                                         <template v-if="!$page.props.auth.user.discogs_connected">
                                             <a
-                                              :href="route('discogs.auth')"
+                                              :href="route('discogs.redirect')"
                                               class="block w-full px-4 py-2 text-start text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out"
                                             >
                                               Connect with Discogs
@@ -228,7 +228,7 @@ const showingNavigationDropdown = ref(false);
                             <ResponsiveNavLink :href="route('profile.edit')"> Profile </ResponsiveNavLink>
                             <template v-if="!$page.props.auth.user.discogs_connected">
                                 <a
-                                  :href="route('discogs.auth')"
+                                  :href="route('discogs.redirect')"
                                   class='block w-full ps-3 pe-4 py-2 border-l-4 border-transparent text-start text-base font-medium text-gray-600 hover:text-gray-800 hover:bg-gray-50 hover:border-gray-300 focus:outline-none focus:text-gray-800 focus:bg-gray-50 focus:border-gray-300 transition duration-150 ease-in-out'
                                 >
                                   Connect with Discogs

@@ -2,46 +2,36 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Session;
-use App\Services\DiscogsServer;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Auth;
+use Laravel\Socialite\Facades\Socialite;
+use GuzzleHttp\Client;
 
 class DiscogsController extends Controller
 {
-    protected $server;
-
-    public function __construct()
+    /**
+     * Redirect the user to the Discogs authentication page.
+     */
+    public function redirectToDiscogs(): RedirectResponse
     {
-        $this->server = new DiscogsServer([
-            'identifier' => env('DISCOGS_CONSUMER_KEY'),
-            'secret' => env('DISCOGS_CONSUMER_SECRET'),
-            'callback_uri' => route('discogs.callback'),
-        ]);
+        return Socialite::driver('discogs')->redirect();
     }
 
-    public function redirectToDiscogs()
+    /**
+     * Obtain the user information from Discogs.
+     * Save the user information and tokens to the database.
+     */
+    public function handleDiscogsCallback(): RedirectResponse
     {
-        $temporaryCredentials = $this->server->getTemporaryCredentials();
-        Session::put('oauth.temp.credentials', $temporaryCredentials);
+        $discogsUser = Socialite::driver('discogs')->user();
 
-        return redirect($this->server->getAuthorizationUrl($temporaryCredentials));
-    }
-
-    public function handleCallback(Request $request)
-    {
-        $temporaryCredentials = Session::get('oauth.temp.credentials');
-        $tokenCredentials = $this->server->getTokenCredentials($temporaryCredentials, $request->oauth_token, $request->oauth_verifier);
-
-        // Fetch discogs username
-        $discogsUsername = $this->server->getUserScreenName($tokenCredentials);
-
-        // Store the discogs_username and discogs_token in the user model
-        $user = auth()->user();
-        $user->discogs_username = $discogsUsername;
-        $user->discogs_token = $tokenCredentials->getSecret();
+        // Save user info and tokens to the database
+        $user = Auth::user();
+        $user->discogs_username = $discogsUser->nickname;
+        $user->discogs_oauth_token = $discogsUser->token;
+        $user->discogs_oauth_token_secret = $discogsUser->tokenSecret;
         $user->save();
 
-        // Redirect to a desired route
-        return redirect()->back()->with('status', 'Discogs account linked successfully!');
+        return redirect('/dashboard');  // Or wherever you want to redirect after login
     }
 }
