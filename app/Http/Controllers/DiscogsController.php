@@ -2,36 +2,62 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\RedirectResponse;
+use App\Http\Controllers\DiscogsReleaseController;
+use App\Models\Release;
+use App\Models\Artist;
+use App\Models\Label;
+use App\Models\Genre;
+use App\Models\Style;
+use App\Models\Track;
+use App\Models\UserList;
+use App\Traits\DiscogsAuthenticates;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Laravel\Socialite\Facades\Socialite;
 use GuzzleHttp\Client;
 
 class DiscogsController extends Controller
 {
-    /**
-     * Redirect the user to the Discogs authentication page.
-     */
-    public function redirectToDiscogs(): RedirectResponse
+    use DiscogsAuthenticates;
+
+    protected $userDiscogsWantlistItemController;
+
+    public function __construct(UserDiscogsWantlistItemController $userDiscogsWantlistItemController)
     {
-        return Socialite::driver('discogs')->redirect();
+        $this->userDiscogsWantlistItemController = $userDiscogsWantlistItemController;
     }
 
-    /**
-     * Obtain the user information from Discogs.
-     * Save the user information and tokens to the database.
-     */
-    public function handleDiscogsCallback(): RedirectResponse
+    public function updateDiscogsWantlist(): void
     {
-        $discogsUser = Socialite::driver('discogs')->user();
-
-        // Save user info and tokens to the database
         $user = Auth::user();
-        $user->discogs_username = $discogsUser->nickname;
-        $user->discogs_oauth_token = $discogsUser->token;
-        $user->discogs_oauth_token_secret = $discogsUser->tokenSecret;
-        $user->save();
+        $client = $this->createAuthenticatedClient();
+        $url = "https://api.discogs.com/users/{$user->discogs_username}/wants";
 
-        return redirect('/dashboard');  // Or wherever you want to redirect after login
+        $allItems = [];
+        $page = 1;
+        $perPage = 500;
+
+        do {
+            $response = $client->get($url, [
+                'query' => [
+                    'page' => $page,
+                    'per_page' => $perPage
+                ]
+            ]);
+
+            $data = json_decode($response->getBody(), true);
+
+            foreach ($data['wants'] as $want) {
+                $allItems[] = [
+                    'user_id' => $user->id,
+                    'release_id' => $want['id'],
+                    'date_added' => $want['date_added']
+                ];
+            }
+
+            $page++;
+        } while ($page <= $data['pagination']['pages']);
+
+        // Synchronize the wantlist items
+        $this->userDiscogsWantlistItemController->syncUserWantlist($allItems);
     }
 }
