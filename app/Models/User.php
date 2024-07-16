@@ -70,4 +70,9 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Track::class, 'user_track');
     }
+
+    public function discogsWantlistItems(): HasMany
+    {
+        return $this->hasMany(UserDiscogsWantlistItem::class);
+    }
 }
