@@ -40,7 +40,7 @@ Route::middleware('auth')->group(function () {
         ->name('discogs.redirect');
     Route::get('/auth/discogs/callback', [DiscogsAuthController::class, 'handleDiscogsCallback'])
         ->name('discogs.callback');
-    Route::get('/test', [DiscogsController::class, 'updateDiscogsWantlist']);
+    Route::post('/discogs/update-wantlist', [DiscogsController::class, 'updateDiscogsWantlist'])->name('discogs.updateWantlist');
 });
 
 Route::resource('releases', ReleaseController::class)
