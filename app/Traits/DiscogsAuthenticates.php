@@ -2,17 +2,18 @@
 
 namespace App\Traits;
 
-use Illuminate\Support\Facades\Auth;
+use App\Models\User;
 use GuzzleHttp\Client;
 
 trait DiscogsAuthenticates
 {
     /**
      * Create an authenticated HTTP client for Discogs API requests.
+     * @param User $user
+     * @return Client
      */
-    protected function createAuthenticatedClient(): Client
+    protected function createAuthenticatedClient(User $user): Client
     {
-        $user = Auth::user();
         $token = $user->discogs_oauth_token;
         $tokenSecret = $user->discogs_oauth_token_secret;
 
