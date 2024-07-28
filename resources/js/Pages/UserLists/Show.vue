@@ -19,7 +19,7 @@ const isRefreshing = ref(false);
 
 const refreshDiscogsWantlist = () => {
   isRefreshing.value = true;
-    router.post(route('discogs.updateWantlist'), {}, {
+    router.post(route('userLists.syncDiscogsWantlist'), {}, {
       preserveScroll: true,
       onSuccess: () => {
         isRefreshing.value = false;

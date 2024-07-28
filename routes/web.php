@@ -1,14 +1,12 @@
 <?php
 
 use App\Http\Controllers\DiscogsAuthController;
-use App\Http\Controllers\DiscogsController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ReleaseController;
 use App\Http\Controllers\UserListController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
-use Laravel\Socialite\Facades\Socialite;
 
 Route::get('/', function () {
     return Inertia::render('Welcome', [
@@ -40,7 +38,7 @@ Route::middleware('auth')->group(function () {
         ->name('discogs.redirect');
     Route::get('/auth/discogs/callback', [DiscogsAuthController::class, 'handleDiscogsCallback'])
         ->name('discogs.callback');
-    Route::post('/discogs/update-wantlist', [DiscogsController::class, 'updateDiscogsWantlist'])->name('discogs.updateWantlist');
+    Route::post('/user-lists/sync-discogs-wantlist', [UserListController::class, 'syncDiscogsWantlist'])->name('userLists.syncDiscogsWantlist');
 });
 
 Route::resource('releases', ReleaseController::class)
