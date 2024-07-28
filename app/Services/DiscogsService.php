@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Traits\DiscogsAuthenticates;
 use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\Exception\RequestException;
+use Illuminate\Support\Facades\Log;
 
 class DiscogsService
 {
@@ -35,7 +36,12 @@ class DiscogsService
             $response = $this->client->get($url);
             return json_decode($response->getBody(), true);
         } catch (RequestException $e) {
-            report($e);
+            Log::error("Failed to fetch release data", [
+                'release_id' => $release_id,
+                'error' => $e->getMessage(),
+                'url' => $url
+            ]);
+
             return null;
         }
     }
@@ -74,10 +80,14 @@ class DiscogsService
 
                 $page++;
             } catch (RequestException $e) {
-                report($e);
+                Log::error("Failed to fetch wantlist page", [
+                    'page' => $page,
+                    'error' => $e->getMessage(),
+                    'url' => $url
+                ]);
                 break;
             }
-        } while ($page <= $data['pagination']['pages']);
+        } while ($page <= $data['pagination']['pages'] ?? 1);
 
         return $wantlistData;
     }
