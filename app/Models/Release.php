@@ -70,7 +70,8 @@ class Release extends Model
 
     public function userLists()
     {
-        return $this->belongsToMany(UserList::class, 'release_list');
+        return $this->belongsToMany(UserList::class, 'release_list')
+            ->withPivot('date_added_to_wantlist');
     }
 
     public function scopeWithSearch(Builder $query, $searchQuery, $searchOption)
