@@ -1,5 +1,7 @@
 <?php
 
+use App\Models\UserList;
+
 test('registration screen can be rendered', function () {
     $response = $this->get('/register');
 
@@ -15,5 +17,10 @@ test('new users can register', function () {
     ]);
 
     $this->assertAuthenticated();
-    $response->assertRedirect(route('dashboard', absolute: false));
+
+    $kollektivXArchiveList = UserList::where('user_id', auth()->id())
+        ->where('name', 'KollektivX Archive')
+        ->first();
+
+    $response->assertRedirect(route('user-lists.show', ['user_list' => $kollektivXArchiveList->id], absolute: false));
 });
