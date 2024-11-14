@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\User;
+use App\Models\UserList;
 
 test('login screen can be rendered', function () {
     $response = $this->get('/login');
@@ -11,13 +12,17 @@ test('login screen can be rendered', function () {
 test('users can authenticate using the login screen', function () {
     $user = User::factory()->create();
 
+    $kollektivXArchiveList = UserList::where('user_id', $user->id)
+        ->where('name', 'KollektivX Archive')
+        ->first();
+
     $response = $this->post('/login', [
         'email' => $user->email,
         'password' => 'password',
     ]);
 
     $this->assertAuthenticated();
-    $response->assertRedirect(route('dashboard', absolute: false));
+    $response->assertRedirect(route('user-lists.show', ['user_list' => $kollektivXArchiveList->id], absolute: false));
 });
 
 test('users can not authenticate with invalid password', function () {
